@@ -1,0 +1,13 @@
+﻿<Window x:Class="AsyncAwait.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Cursor="{Binding Path=IsBusy, Converter={StaticResource BoolToCursorConverter}}"
+        Title="Async Tasks" Height="350" Width="525">
+    <Grid>
+        <Label Content="{Binding Path=Message, Mode=OneWay}" HorizontalAlignment="Left" Margin="183,38,0,0" VerticalAlignment="Top"/>
+        <Button Command="{Binding Path=TestCommand}" Content="Get Message" HorizontalAlignment="Left" Margin="32,38,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="{Binding Path=BusyMessage, Mode=OneWay}" HorizontalAlignment="Left" Margin="353,265,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,99,0,0" TextWrapping="Wrap" Text="Points of interest: the command uses async await, the view-model provides the following observable properties: IsBusy, BusyMessage, Error and Message. We also utilise a value converter to map the window cursor to the IsBusy property" VerticalAlignment="Top" Height="61" Width="459"/>
+
+    </Grid>
+</Window>
