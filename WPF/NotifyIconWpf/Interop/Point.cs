@@ -1,0 +1,14 @@
+﻿namespace NotifyIconWpf.Interop
+{
+    using System.Runtime.InteropServices;
+
+    /// <summary>
+  /// Win API struct providing coordinates for a single point.
+  /// </summary>
+  [StructLayout(LayoutKind.Sequential)]
+  public struct Point
+  {
+    public int X;
+    public int Y;
+  }
+}

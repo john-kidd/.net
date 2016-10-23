@@ -1,0 +1,127 @@
+﻿<navigation:RadWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+    xmlns:navigation="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Navigation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:gridView="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    mc:Ignorable="d"
+    x:Class="Metro.Desktop.Views.MainView"
+    Header="Metro Dashboard"
+    Height="500"
+    Width="750"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+    telerik:StyleManager.Theme="Windows8">
+    <navigation:RadWindow.Resources>
+        <Style
+            TargetType="telerik:Tile">
+            <Setter
+                Property="TileType"
+                Value="Single" />
+            <Setter
+                Property="Background"
+                Value="{Binding Path=BackgroundColour}" />
+            <Setter
+                Property="Foreground"
+                Value="{Binding Path=ForegroundColour}" />
+            <Setter
+                Property="Group"
+                Value="{Binding Path=Group}" />
+        </Style>
+        <DataTemplate
+            x:Key="GroupTemplate">
+            <TextBlock
+                Text="{Binding}"
+                Foreground="#BBB8B8"
+                Margin="20"
+                FontSize="20"
+                FontFamily="Segoe UI">
+            </TextBlock>
+        </DataTemplate>
+    </navigation:RadWindow.Resources>
+    <telerik:RadBusyIndicator
+        BusyContent="{Binding BusyMessage}"
+        IsBusy="{Binding IsBusy}"
+        telerik:StyleManager.Theme="Windows8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="*"></RowDefinition>
+                <RowDefinition
+                    Height="40"></RowDefinition>
+                <RowDefinition
+                    Height="300"></RowDefinition>
+            </Grid.RowDefinitions>
+            <telerik:RadTileList
+                x:Name="ActionList"
+                Grid.Row="0"
+                Margin="30 30 30 0"
+                telerik:StyleManager.Theme="Windows8"
+                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                GroupTemplate="{StaticResource GroupTemplate}"
+                ItemsSource="{Binding Path=Actions}"
+                AutoGeneratingTile="BindingDidComplete">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger
+                        EventName="SelectionChanged">
+                        <i:InvokeCommandAction
+                            Command="{Binding Path=ActionCommand, Mode=OneWay}"
+                            CommandParameter="{Binding ElementName=ActionList, Path=SelectedIndex}">
+                            
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <telerik:RadTileList.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
+                            Text="{Binding Path=Header, Mode=OneTime}"></TextBlock>
+                    </DataTemplate>
+                </telerik:RadTileList.ItemTemplate>
+            </telerik:RadTileList>
+            <TextBlock
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                Foreground="#C4C3C3"
+                Margin="30 0 0 0"
+                HorizontalAlignment="Left"
+                FontSize="20">Tasks</TextBlock>
+            <gridView:RadGridView
+                Grid.Row="2"
+                GroupRenderMode="Flat"
+                AutoGenerateColumns="False"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                CanUserFreezeColumns="False"
+                Margin="30 0 30 30"
+                RowIndicatorVisibility="Collapsed"
+                ItemsSource="{Binding Path=Tasks}"
+                GridLinesVisibility="None"
+                telerik:StyleManager.Theme="Windows8">
+                <gridView:RadGridView.Columns>
+                    <gridView:GridViewDataColumn
+                        Header="Tasks"
+                        DataMemberBinding="{Binding Header}"
+                        Width="*" />
+                    <gridView:GridViewDataColumn
+                        Header="Start Date"
+                        DataMemberBinding="{Binding StartDate}"
+                        Width="*" />
+                    <gridView:GridViewDataColumn
+                        Header="Allocated User"
+                        DataMemberBinding="{Binding AllocatedUser}"
+                        Width="*" />
+                    <gridView:GridViewDataColumn
+                        Header="Status"
+                        DataMemberBinding="{Binding Status}"
+                        Width="*" />
+                    <gridView:GridViewHyperlinkColumn
+                        Header="Action"
+                        DataMemberBinding="{Binding Url}"
+                        Width="*" />
+                </gridView:RadGridView.Columns>
+            </gridView:RadGridView>
+        </Grid>
+    </telerik:RadBusyIndicator>
+</navigation:RadWindow>
